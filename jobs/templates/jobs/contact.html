@@ -1,0 +1,482 @@
+{% extends 'jobs/base.html' %}
+{% load static %}
+
+{% block extra_head %}
+    <style>
+    /* Page Header */
+    .page-header {
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #4a90e2 100%);
+        padding: 80px 0 60px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .page-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" stop-color="%23ffffff" stop-opacity="0.1"/><stop offset="100%" stop-color="%23ffffff" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="200" r="100" fill="url(%23a)"/><circle cx="800" cy="300" r="150" fill="url(%23a)"/><circle cx="400" cy="700" r="120" fill="url(%23a)"/></svg>');
+        opacity: 0.3;
+    }
+    
+    .page-header-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        color: white;
+    }
+    
+    .page-title {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        background: linear-gradient(45deg, #fff, #87ceeb, #b0e0e6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: fadeInUp 1s ease-out;
+    }
+    
+    .page-subtitle {
+        font-size: 1.2rem;
+        opacity: 0.9;
+        animation: fadeInUp 1s ease-out 0.2s both;
+    }
+    
+    /* Contact Container */
+    .contact-container {
+        max-width: 1200px;
+        margin: -40px auto 0;
+        position: relative;
+        z-index: 3;
+        padding: 0 1rem;
+    }
+    
+    .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        margin-bottom: 3rem;
+    }
+    
+    /* Contact Form */
+    .contact-form-card {
+        background: white;
+        border-radius: 20px;
+        padding: 2.5rem;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .contact-form-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #1e3c72, #2a5298, #4a90e2);
+    }
+    
+    .form-title {
+        color: #1e3c72;
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-label {
+        color: #333;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+    
+    .form-control {
+        width: 100%;
+        padding: 1rem 1.2rem;
+        border: 2px solid rgba(30, 60, 114, 0.1);
+        border-radius: 12px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: #f8f9ff;
+    }
+    
+    .form-control:focus {
+        outline: none;
+        border-color: #87ceeb;
+        background: white;
+        box-shadow: 0 0 20px rgba(135, 206, 235, 0.3);
+    }
+    
+    .form-control::placeholder {
+        color: #999;
+    }
+    
+    .btn-submit {
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 25px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+    }
+    
+    .btn-submit:hover {
+        background: linear-gradient(135deg, #2a5298, #4a90e2);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(30, 60, 114, 0.3);
+    }
+    
+    /* Contact Info */
+    .contact-info-card {
+        background: white;
+        border-radius: 20px;
+        padding: 2.5rem;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .contact-info-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #1e3c72, #2a5298, #4a90e2);
+    }
+    
+    .info-title {
+        color: #1e3c72;
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-bottom: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .contact-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+        border-radius: 15px;
+        transition: all 0.3s ease;
+    }
+    
+    .contact-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(30, 60, 114, 0.15);
+    }
+    
+    .contact-icon {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #87ceeb, #b0e0e6);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+    
+    .contact-icon i {
+        font-size: 1.2rem;
+        color: #1e3c72;
+    }
+    
+    .contact-details h4 {
+        color: #1e3c72;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+    
+    .contact-details p {
+        color: #666;
+        margin: 0;
+        line-height: 1.5;
+    }
+    
+    .contact-details a {
+        color: #87ceeb;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+    
+    .contact-details a:hover {
+        color: #1e3c72;
+    }
+    
+    /* Social Links */
+    .social-links {
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(30, 60, 114, 0.1);
+    }
+    
+    .social-links h4 {
+        color: #1e3c72;
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+    
+    .social-buttons {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+    
+    .social-btn {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-size: 1.2rem;
+    }
+    
+    .social-btn.facebook {
+        background: #1877f2;
+        color: white;
+    }
+    
+    .social-btn.whatsapp {
+        background: #25d366;
+        color: white;
+    }
+    
+    .social-btn.instagram {
+        background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+        color: white;
+    }
+    
+    .social-btn.youtube {
+        background: #ff0000;
+        color: white;
+    }
+    
+    .social-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Map Section */
+    .map-section {
+        background: white;
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        margin-bottom: 3rem;
+    }
+    
+    .map-title {
+        color: #1e3c72;
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .map-placeholder {
+        background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+        border-radius: 15px;
+        height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #666;
+        font-size: 1.1rem;
+        border: 2px dashed rgba(30, 60, 114, 0.2);
+    }
+    
+    /* Animations */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .fade-in-up {
+        animation: fadeInUp 0.8s ease-out;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .page-title { font-size: 2rem; }
+        .page-subtitle { font-size: 1rem; }
+        .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+        .contact-form-card, .contact-info-card { padding: 2rem; }
+        .social-buttons { justify-content: center; }
+    }
+    </style>
+{% endblock %}
+
+{% block content %}
+<!-- Page Header -->
+<section class="page-header">
+        <div class="container">
+        <div class="page-header-content">
+            <h1 class="page-title">
+                <i class="fa fa-envelope"></i>
+                Contact Us
+            </h1>
+            <p class="page-subtitle">Get in touch with us for any queries or support</p>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Container -->
+<div class="contact-container">
+    <div class="contact-grid">
+        <!-- Contact Form -->
+        <div class="contact-form-card fade-in-up">
+            <h2 class="form-title">
+                <i class="fa fa-paper-plane"></i>
+                Send us a Message
+            </h2>
+        <form method="post">
+            {% csrf_token %}
+                <div class="form-group">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email address" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject" class="form-label">Subject</label>
+                    <input type="text" class="form-control" id="subject" name="subject" placeholder="What's this about?" required>
+                </div>
+                <div class="form-group">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea class="form-control" id="message" name="message" rows="5" placeholder="Tell us more about your query..." required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">
+                    <i class="fa fa-send"></i>
+                    Send Message
+                </button>
+            </form>
+        </div>
+        
+        <!-- Contact Information -->
+        <div class="contact-info-card fade-in-up">
+            <h2 class="info-title">
+                <i class="fa fa-info-circle"></i>
+                Get in Touch
+            </h2>
+            
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fa fa-map-marker-alt"></i>
+                </div>
+                <div class="contact-details">
+                    <h4>Our Address</h4>
+                    <p>123 Business Street<br>City, State 12345<br>Country</p>
+                </div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fa fa-phone"></i>
+                </div>
+                <div class="contact-details">
+                    <h4>Phone Number</h4>
+                    <p><a href="tel:+1234567890">+1 (234) 567-890</a><br>
+                    <a href="tel:+1234567891">+1 (234) 567-891</a></p>
+                </div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fa fa-envelope"></i>
+                </div>
+                <div class="contact-details">
+                    <h4>Email Address</h4>
+                    <p><a href="mailto:info@onlineinformation.com">info@onlineinformation.com</a><br>
+                    <a href="mailto:support@onlineinformation.com">support@onlineinformation.com</a></p>
+                </div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fa fa-clock"></i>
+                </div>
+                <div class="contact-details">
+                    <h4>Business Hours</h4>
+                    <p>Monday - Friday: 9:00 AM - 6:00 PM<br>
+                    Saturday: 10:00 AM - 4:00 PM<br>
+                    Sunday: Closed</p>
+                </div>
+            </div>
+            
+            <div class="social-links">
+                <h4>Follow Us</h4>
+                <div class="social-buttons">
+                    <a href="https://www.facebook.com/profile.php?id=100075118394804" class="social-btn facebook" target="_blank">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://www.whatsapp.com/channel/0029VaENUSO8V0thKbti4t3O" class="social-btn whatsapp" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://www.instagram.com/onlineinformation2115?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="social-btn instagram" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.youtube.com/@onlineinformation8324" class="social-btn youtube" target="_blank">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+    </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Map Section -->
+    <div class="map-section fade-in-up">
+        <h2 class="map-title">
+            <i class="fa fa-map"></i>
+            Find Us on Map
+        </h2>
+        <div class="map-placeholder">
+            <div style="text-align: center;">
+                <i class="fa fa-map-marker-alt" style="font-size: 3rem; color: #87ceeb; margin-bottom: 1rem;"></i>
+                <p>Interactive map will be displayed here</p>
+                <small>123 Business Street, City, State 12345</small>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

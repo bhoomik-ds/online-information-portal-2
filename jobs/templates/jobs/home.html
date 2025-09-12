@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'jobs/css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-4 px-4">
+    <div class="d-flex main-content" style="gap:2rem;">
+        <!-- Left Sidebar -->
+        <div class="sidebar-left" style="flex:1.2; min-width:300px;">
+            <div class="sidebar-card" style="border:2px solid #25d366;">
+                <h5><i class="fa fa-id-card me-2 text-warning"></i>Call Letters</h5>
+                <ul>
+                    {% for call in callletters %}
+                        <li><a href="{{ call.url }}"><span style="color:#ffcc00;font-weight:bold;">&gt;&gt;</span> {{ call.title }}</a></li>
+                    {% empty %}
+                        <li>No call letters available.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="sidebar-card" style="border:2px solid #ffcc00;">
+                <h5><i class="fa fa-ticket me-2 text-warning"></i>Admit Cards</h5>
+                <ul>
+                    {% for admit in admitcards %}
+                        <li><a href="{{ admit.url }}"><span style="color:#ffcc00;font-weight:bold;">&gt;&gt;</span> {{ admit.title }}</a></li>
+                    {% empty %}
+                        <li>No admit cards available.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <!-- Center Section -->
+        <div style="flex:2.2; min-width:400px;">
+            <div class="sidebar-card" style="border:2px solid #003366;">
+                <h5 style="background:#003366; color:#fff; border-radius:10px; padding:0.5rem 1rem; margin-bottom:1rem;">
+                    <i class="fa fa-briefcase me-2 text-warning"></i>Latest Jobs
+                </h5>
+                <ul style="list-style:none; padding-left:0;">
+                    {% for job in jobs %}
+                        <li style="margin-bottom:0.7rem;">
+                            <a href="{% url 'job_detail' job.id %}" style="color:#004d99; text-decoration:none; display:block; padding:0.4rem 0.7rem; border-radius:6px; transition:background 0.2s, color 0.2s; border:2px solid #000;">
+                                <span style="color:#ffcc00;font-weight:bold;">&gt;&gt;</span> {{ job.title }}<br>
+                                <span style="font-size:0.95rem; color:#222;">{{ job.short_description }}</span>
+                            </a>
+                        </li>
+                    {% empty %}
+                        <li class="text-muted">No jobs available.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="sidebar-card" style="border:2px solid #ffcc00;">
+                <h5 style="background:#003366; color:#fff; border-radius:10px; padding:0.5rem 1rem; margin-bottom:1rem;">
+                    <i class="fa fa-bell me-2 text-warning"></i>Notification
+                </h5>
+                <ul style="list-style:none; padding-left:0;">
+                    {% for notification in notifications %}
+                        <li style="margin-bottom:0.7rem;">
+                            <div style="color:#004d99; text-decoration:none; display:block; padding:0.4rem 0.7rem; border-radius:6px; transition:background 0.2s, color 0.2s; border:2px solid #000;">
+                                <span style="color:#ffcc00;font-weight:bold;">&gt;&gt;</span> {{ notification.title }}<br>
+                                <span style="font-size:0.95rem; color:#222;">{{ notification.content }}</span>
+                            </a>
+                        </li>
+                    {% empty %}
+                        <li class="text-muted">No notifications available.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <!-- Right Sidebar -->
+        <div class="sidebar-right" style="flex:1.2; min-width:300px;">
+            <div class="sidebar-card" style="border:2px solid #ff5722;">
+                <h5><i class="fa fa-trophy me-2 text-warning"></i>Latest Results</h5>
+                <ul>
+                    {% for result in results %}
+                        <li><a href="{{ result.result_file.url }}"><span style="color:#ffcc00;font-weight:bold;">&gt;&gt;</span> {{ result.exam_name }}</a></li>
+                    {% empty %}
+                        <li>No results available.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="sidebar-card" style="border:2px solid #0074d9;">
+                <h5><i class="fa fa-link me-2 text-warning"></i>Quick Links</h5>
+                <ul>
+                    {% for link in quicklinks %}
+                        <li><a href="{{ link.url }}"><span style="color:#ffcc00;font-weight:bold;">&gt;&gt;</span> {{ link.title }}</a></li>
+                    {% empty %}
+                        <li>No quick links available.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

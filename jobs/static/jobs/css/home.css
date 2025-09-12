@@ -1,0 +1,360 @@
+/* Jobs Homepage Styling - Clean Version */
+
+/* General sidebar cards */
+.sidebar-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.sidebar-card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    transform: translateY(-2px);
+}
+
+/* Sidebar card headers */
+.sidebar-card h5 {
+    background: #003366;
+    color: #fff;
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Sidebar card lists */
+.sidebar-card ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.sidebar-card li {
+    margin-bottom: 0.5rem;
+}
+
+/* Sidebar card links */
+.sidebar-card li a {
+    color: #004d99;
+    text-decoration: none;
+    display: block;
+    padding: 0.4rem 0.7rem;
+    border-radius: 6px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.sidebar-card li a:hover {
+    background: #e6f0ff;
+    color: #0074d9;
+}
+
+/* Enhanced styling for Latest Jobs section */
+.sidebar-card[style*="border:2px solid #003366"] {
+    background: linear-gradient(145deg, #ffffff, #f8fafc);
+    position: relative;
+    overflow: hidden;
+}
+
+.sidebar-card[style*="border:2px solid #003366"]:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 51, 102, 0.18);
+}
+
+/* Enhanced headers for Latest Jobs */
+.sidebar-card h5[style*="background:#003366"] {
+    background: linear-gradient(135deg, #003366, #0074d9) !important;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 0.3px;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    border-radius: 12px !important;
+    margin-bottom: 1.5rem !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.sidebar-card h5[style*="background:#003366"] .text-warning {
+    color: #ffd700 !important;
+    font-size: 1.1rem;
+    filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.5));
+}
+
+/* Sliding effect for headers */
+.sidebar-card h5[style*="background:#003366"]::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.sidebar-card:hover h5[style*="background:#003366"]::after {
+    left: 100%;
+}
+
+/* Enhanced job links styling */
+.sidebar-card[style*="border:2px solid #003366"] a[style*="border:2px solid #000"] {
+    background: linear-gradient(135deg, #ffffff, #f1f5f9) !important;
+    border-radius: 10px !important;
+    padding: 1rem !important;
+    position: relative;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 2px 8px rgba(0,51,102,0.08);
+    overflow: hidden;
+    margin-bottom: 8px !important;
+}
+
+.sidebar-card[style*="border:2px solid #003366"] a[style*="border:2px solid #000"]:hover {
+    background: linear-gradient(135deg, #f0f9ff, #e0f2fe) !important;
+    transform: translateY(-2px) translateX(3px);
+    box-shadow: 0 8px 20px rgba(0,116,217,0.15);
+}
+
+/* Job description styling */
+.sidebar-card[style*="border:2px solid #003366"] span[style*="font-size:0.95rem"] {
+    color: #64748b !important;
+    font-size: 0.9rem !important;
+    margin-top: 8px !important;
+    display: block !important;
+    padding-left: 20px !important;
+    border-left: 2px solid #e2e8f0 !important;
+    transition: all 0.3s ease !important;
+    line-height: 1.4 !important;
+}
+
+.sidebar-card[style*="border:2px solid #003366"] a:hover span[style*="font-size:0.95rem"] {
+    color: #475569 !important;
+    border-left-color: #0074d9 !important;
+    padding-left: 25px !important;
+}
+
+/* Arrow styling */
+.sidebar-card[style*="border:2px solid #003366"] a span[style*="color:#ffcc00"] {
+    color: #0074d9 !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.sidebar-card[style*="border:2px solid #003366"] a:hover span[style*="color:#ffcc00"] {
+    color: #003366 !important;
+    transform: translateX(5px);
+    text-shadow: 0 0 8px rgba(0,116,217,0.5);
+}
+
+/* Job item animations */
+.sidebar-card[style*="border:2px solid #003366"] li {
+    margin-bottom: 1rem !important;
+    animation: slideInUp 0.5s ease forwards;
+}
+
+.sidebar-card[style*="border:2px solid #003366"] li:nth-child(1) { animation-delay: 0.1s; }
+.sidebar-card[style*="border:2px solid #003366"] li:nth-child(2) { animation-delay: 0.15s; }
+.sidebar-card[style*="border:2px solid #003366"] li:nth-child(3) { animation-delay: 0.2s; }
+.sidebar-card[style*="border:2px solid #003366"] li:nth-child(4) { animation-delay: 0.25s; }
+.sidebar-card[style*="border:2px solid #003366"] li:nth-child(5) { animation-delay: 0.3s; }
+
+/* Card fade in animation */
+.sidebar-card[style*="border:2px solid #003366"] {
+    animation: cardFadeIn 0.8s ease forwards;
+}
+
+/* Keyframes */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes cardFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive design - Mobile Layout Changes */
+@media (max-width: 768px) {
+    /* Change flex direction to column on mobile */
+    .main-content {
+        flex-direction: column !important;
+        gap: 1rem !important;
+    }
+    
+    /* Remove flex and min-width restrictions on mobile */
+    .sidebar-left,
+    .sidebar-right,
+    div[style*="flex:2.2"] {
+        flex: none !important;
+        min-width: auto !important;
+        width: 100% !important;
+    }
+    
+    /* Reorder sections on mobile - Latest Jobs first */
+    .sidebar-left {
+        order: 2; /* Call Letters, Admit Cards - second */
+    }
+    
+    div[style*="flex:2.2"] {
+        order: 1; /* Latest Jobs, Notifications - first */
+    }
+    
+    .sidebar-right {
+        order: 3; /* Latest Results, Quick Links - third */
+    }
+    
+    /* Make Latest Jobs section look exactly like Latest Results on mobile */
+    .sidebar-card[style*="border:2px solid #003366"] {
+        /* Override border color to match Latest Results */
+        border: 2px solid #ff5722 !important;
+        flex: 1;
+        width: 100%;
+        /* Reset all enhanced styling on mobile */
+        background: #fff !important;
+        position: static !important;
+        overflow: visible !important;
+        animation: none !important;
+        transform: none !important;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.08) !important;
+    }
+    
+    /* Make Latest Jobs header look exactly like Latest Results header on mobile */
+    .sidebar-card[style*="border:2px solid #003366"] h5[style*="background:#003366"] {
+        /* Reset to simple header style like Latest Results */
+        background: #003366 !important;
+        color: #fff !important;
+        border-radius: 10px !important;
+        padding: 0.5rem 1rem !important;
+        margin-bottom: 1rem !important;
+        font-weight: normal !important;
+        font-size: 1rem !important;
+        letter-spacing: normal !important;
+        text-shadow: none !important;
+        position: static !important;
+        overflow: visible !important;
+    }
+    
+    /* Remove header effects on mobile */
+    .sidebar-card[style*="border:2px solid #003366"] h5[style*="background:#003366"]::after {
+        display: none !important;
+    }
+    
+    /* Make Latest Jobs links look exactly like Latest Results links on mobile */
+    .sidebar-card[style*="border:2px solid #003366"] a[style*="border:2px solid #000"] {
+        /* Reset to simple link style like Latest Results */
+        background: transparent !important;
+        border: none !important;
+        border-radius: 6px !important;
+        padding: 0.4rem 0.7rem !important;
+        position: static !important;
+        transition: background 0.2s, color 0.2s !important;
+        box-shadow: none !important;
+        overflow: visible !important;
+        margin-bottom: 0.5rem !important;
+        transform: none !important;
+    }
+    
+    .sidebar-card[style*="border:2px solid #003366"] a[style*="border:2px solid #000"]:hover {
+        /* Simple hover like Latest Results */
+        background: #e6f0ff !important;
+        color: #0074d9 !important;
+        transform: none !important;
+        box-shadow: none !important;
+    }
+    
+    /* Hide job descriptions on mobile to match Latest Results */
+    .sidebar-card[style*="border:2px solid #003366"] span[style*="font-size:0.95rem"] {
+        display: none !important;
+    }
+    
+    /* Style arrows to match Latest Results */
+    .sidebar-card[style*="border:2px solid #003366"] a span[style*="color:#ffcc00"] {
+        color: #ffcc00 !important;
+        font-weight: bold !important;
+        font-size: 1rem !important;
+        margin-right: 5px !important;
+        transition: none !important;
+        display: inline !important;
+        transform: none !important;
+        text-shadow: none !important;
+    }
+    
+    .sidebar-card[style*="border:2px solid #003366"] a:hover span[style*="color:#ffcc00"] {
+        color: #ffcc00 !important;
+        transform: none !important;
+        text-shadow: none !important;
+    }
+    
+    /* Reset list items to match Latest Results */
+    .sidebar-card[style*="border:2px solid #003366"] li {
+        margin-bottom: 0.5rem !important;
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+    
+    /* Mobile specific styling for job links */
+    .sidebar-card[style*="border:2px solid #003366"] a[style*="border:2px solid #000"] {
+        padding: 0.8rem !important;
+    }
+    
+    .sidebar-card[style*="border:2px solid #003366"] span[style*="font-size:0.95rem"] {
+        padding-left: 15px !important;
+        font-size: 0.85rem !important;
+    }
+    
+    .sidebar-card[style*="border:2px solid #003366"] a:hover span[style*="font-size:0.95rem"] {
+        padding-left: 20px !important;
+    }
+    
+    /* Ensure all sections have equal spacing on mobile */
+    .sidebar-card {
+        margin-bottom: 1rem !important;
+    }
+    
+    /* Container adjustments for mobile */
+    .container-fluid {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 576px) {
+    /* Further optimize for smaller screens */
+    .container-fluid {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+    
+    .main-content {
+        gap: 0.5rem !important;
+    }
+    
+    /* Ensure Latest Jobs section is prominently displayed */
+    div[style*="flex:2.2"] {
+        order: 1;
+        margin-bottom: 1rem;
+    }
+    
+    /* Equal width for all sidebar cards on small mobile */
+    .sidebar-card {
+        width: 100% !important;
+        margin-bottom: 0.8rem !important;
+    }
+}

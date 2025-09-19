@@ -56,8 +56,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "online_information.middleware.NoCacheMiddleware",  # Prevent caching in DEBUG mode
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    "online_information.middleware.NoCacheMiddleware",  # Prevent caching in DEBUG mode
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -160,6 +160,13 @@ CLOUDINARY_STORAGE ={
     'API_KEY': '388648679118291',
     'API_SECRET': 'R0LTBqlkligttnBVj5hB7UkoFOQ',
 }
+
+cloudinary.config(
+    cloud_name=CLOUDINARY_STORAGE['CLOUD_NAME'],
+    api_key=CLOUDINARY_STORAGE['API_KEY'],
+    api_secret=CLOUDINARY_STORAGE['API_SECRET'],
+    secure=True
+)
 
 # Disable caching for development to prevent media file issues
 if DEBUG:

@@ -35,10 +35,6 @@
         .section-title { color: #1e3c72; font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
         .section-title::before { content: ''; width: 4px; height: 30px; background: linear-gradient(180deg, #1e3c72, #2a5298); border-radius: 2px; }
         .job-description { color: #555; line-height: 1.8; font-size: 1rem; }
-        .job-actions { background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%); padding: 2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-        .btn-apply { background: linear-gradient(135deg, #1e3c72, #2a5298); color: #fff; border: none; padding: 1rem 2rem; border-radius: 25px; font-weight: 600; text-decoration: none; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.5rem; font-size: 1.1rem; }
-        .btn-save { background: transparent; color: #87ceeb; border: 2px solid #87ceeb; padding: 1rem 2rem; border-radius: 25px; font-weight: 600; text-decoration: none; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.5rem; font-size: 1.1rem; }
-        .btn-share { background: transparent; color: #1e3c72; border: 2px solid #1e3c72; padding: 1rem 2rem; border-radius: 25px; font-weight: 600; text-decoration: none; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.5rem; font-size: 1.1rem; }
         .links-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; }
         .link-button { display: flex; align-items: center; gap: 0.8rem; padding: 1rem 1.5rem; border-radius: 15px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; border: 2px solid; }
         .apply-link { background: linear-gradient(135deg, #28a745, #20c997); color: #fff; border-color: #28a745; }
@@ -46,7 +42,8 @@
         .whatsapp-link { background: linear-gradient(135deg, #25d366, #128c7e); color: #fff; border-color: #25d366; }
         .telegram-link { background: linear-gradient(135deg, #0088cc, #0088cc); color: #fff; border-color: #0088cc; }
         .youtube-link { background: linear-gradient(135deg, #ff0000, #cc0000); color: #fff; border-color: #ff0000; }
-        .back-button { position: absolute; top: 2rem; left: 2rem; background: rgba(255,255,255,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.3); padding: 0.8rem 1.5rem; border-radius: 25px; text-decoration: none; transition: all 0.3s ease; backdrop-filter: blur(10px); }
+        .job-actions { background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%); padding: 2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .btn-save { background: transparent; color: #87ceeb; border: 2px solid #87ceeb; padding: 1rem 2rem; border-radius: 25px; font-weight: 600; text-decoration: none; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 0.5rem; font-size: 1.1rem; }
         @media (max-width: 768px) {
             .job-detail-container { max-width: 95%; }
             .page-title { font-size: 1.8rem; }
@@ -57,17 +54,15 @@
             .desc-value { margin-left: 0; }
             .dual-info-section { flex-direction: column; gap: 1rem; }
             .dual-info-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-            .back-button { position: static; margin-bottom: 1rem; }
-            .links-grid { grid-template-columns: 1fr; }
         }
         </style>
         <div class="page-header-content">
-            <a href="{% url 'job_list' %}" class="back-button">
+            <a href="{% url 'home' %}" class="btn-save">
                 <i class="fa fa-arrow-left"></i>
-                Back to Jobs
+                Back to Home
             </a>
-            <h1 class="page-title">{{ job.title }}</h1>
-            <p class="page-subtitle">Job Details & Application Information</p>
+            <h1 class="page-title">{{ upcoming.title }}</h1>
+            <p class="page-subtitle">Upcoming Job Details & Information</p>
         </div>
     </div>
 </section>
@@ -76,149 +71,137 @@
     <div class="job-detail-card fade-in-up">
 
         <div class="job-title-header">
-            <h1>{{ job.title }}</h1>
+            <h1>{{ upcoming.title }}</h1>
         </div>
 
-        {% if job.image %}
+        {% if upcoming.image %}
         <div class="job-image-top">
-            <img src="{{ job.image.url }}" alt="{{ job.title }}" class="job-main-image">
+            <img src="{{ upcoming.image.url }}" alt="{{ upcoming.title }}" class="job-main-image">
         </div>
         {% endif %}
 
         <div class="job-info-section">
-            {% if job.organization_name %}
+            {% if upcoming.organization_name %}
             <div class="info-row">
                 <span class="info-label">ORGANIZATION:</span>
-                <span class="info-value">{{ job.organization_name }}</span>
+                <span class="info-value">{{ upcoming.organization_name }}</span>
             </div>
             {% endif %}
 
-            {% if job.post_name %}
+            {% if upcoming.post_name %}
             <div class="info-row">
                 <span class="info-label">POST NAME:</span>
-                <span class="info-value">{{ job.post_name }}</span>
+                <span class="info-value">{{ upcoming.post_name }}</span>
             </div>
             {% endif %}
 
-            {% if job.salary %}
+            {% if upcoming.salary %}
             <div class="info-row">
                 <span class="info-label">SALARY:</span>
-                <span class="info-value">{{ job.salary }}</span>
+                <span class="info-value">{{ upcoming.salary }}</span>
             </div>
             {% endif %}
 
-            {% if job.total_vacancies %}
+            {% if upcoming.total_vacancies %}
             <div class="info-row">
                 <span class="info-label">TOTAL VACANCIES:</span>
-                <span class="info-value">{{ job.total_vacancies }}</span>
+                <span class="info-value">{{ upcoming.total_vacancies }}</span>
             </div>
             {% endif %}
 
-            {% if job.start_date %}
+            {% if upcoming.start_date %}
             <div class="info-row">
                 <span class="info-label">START DATE:</span>
-                <span class="info-value">{{ job.start_date }}</span>
+                <span class="info-value">{{ upcoming.start_date }}</span>
             </div>
             {% endif %}
 
-            {% if job.end_date %}
+            {% if upcoming.end_date %}
             <div class="info-row">
                 <span class="info-label">END DATE:</span>
-                <span class="info-value">{{ job.end_date }}</span>
+                <span class="info-value">{{ upcoming.end_date }}</span>
             </div>
             {% endif %}
         </div>
 
-        {% if job.short_description %}
+        {% if upcoming.short_description %}
         <div class="description-section">
             <div class="description-row">
                 <span class="desc-label">DESCRIPTION:</span>
-                <span class="desc-value">{{ job.short_description|linebreaksbr }}</span>
+                <span class="desc-value">{{ upcoming.short_description }}</span>
             </div>
         </div>
         {% endif %}
 
-        {% if job.education_qualification %}
+        {% if upcoming.education_qualification %}
         <div class="qa-section">
             <div class="qa-question">EDUCATION QUALIFICATION</div>
-            <div class="qa-answer">{{ job.education_qualification }}</div>
+            <div class="qa-answer">{{ upcoming.education_qualification }}</div>
         </div>
         {% endif %}
 
         <div class="dual-info-section">
-            {% if job.age_limit %}
+            {% if upcoming.age_limit %}
             <div class="dual-info-item">
                 <span class="info-label">AGE LIMIT:</span>
-                <span class="info-value">{{ job.age_limit }}</span>
+                <span class="info-value">{{ upcoming.age_limit }}</span>
             </div>
             {% endif %}
 
-            {% if job.application_fee %}
+            {% if upcoming.application_fee %}
             <div class="dual-info-item">
                 <span class="info-label">APPLICATION FEE:</span>
-                <span class="info-value">{{ job.application_fee }}</span>
+                <span class="info-value">{{ upcoming.application_fee }}</span>
             </div>
             {% endif %}
         </div>
 
-        {% if job.exam_pattern %}
+        {% if upcoming.exam_pattern %}
         <div class="qa-section">
             <div class="qa-question">EXAM PATTERN</div>
             <div class="qa-answer exam-pattern-content">
-                {{ job.exam_pattern|linebreaksbr }}
+                {{ upcoming.exam_pattern|safe|linebreaks }}
             </div>
         </div>
         {% endif %}
 
-        {% if job.short_description %}
-        <div class="job-description-section">
-            <h2 class="section-title">
-                <i class="fa fa-file-text"></i>
-                Job Description
-            </h2>
-            <div class="job-description">
-                {{ job.short_description|linebreaks }}
-            </div>
-        </div>
-        {% endif %}
-
-        {% if job.apply_online_link or job.official_notification_link or job.whatsapp_link or job.telegram_link or job.youtube_link %}
+        {% if upcoming.apply_online_link or upcoming.official_notification_link or upcoming.whatsapp_link or upcoming.telegram_link or upcoming.youtube_link %}
         <div class="job-description-section">
             <h2 class="section-title">
                 <i class="fa fa-link"></i>
                 Important Links
             </h2>
             <div class="links-grid">
-                {% if job.apply_online_link %}
-                <a href="{{ job.apply_online_link }}" target="_blank" rel="noopener noreferrer" aria-label="Apply online" class="link-button apply-link">
+                {% if upcoming.apply_online_link %}
+                <a href="{{ upcoming.apply_online_link }}" target="_blank" class="link-button apply-link">
                     <i class="fa fa-external-link-alt"></i>
                     Apply Online
                 </a>
                 {% endif %}
 
-                {% if job.official_notification_link %}
-                <a href="{{ job.official_notification_link }}" target="_blank" rel="noopener noreferrer" aria-label="Official notification" class="link-button notification-link">
+                {% if upcoming.official_notification_link %}
+                <a href="{{ upcoming.official_notification_link }}" target="_blank" class="link-button notification-link">
                     <i class="fa fa-file-pdf"></i>
                     Official Notification
                 </a>
                 {% endif %}
 
-                {% if job.whatsapp_link %}
-                <a href="{{ job.whatsapp_link }}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp channel" class="link-button whatsapp-link">
+                {% if upcoming.whatsapp_link %}
+                <a href="{{ upcoming.whatsapp_link }}" target="_blank" class="link-button whatsapp-link">
                     <i class="fab fa-whatsapp"></i>
                     WhatsApp Channel
                 </a>
                 {% endif %}
 
-                {% if job.telegram_link %}
-                <a href="{{ job.telegram_link }}" target="_blank" rel="noopener noreferrer" aria-label="Telegram channel" class="link-button telegram-link">
+                {% if upcoming.telegram_link %}
+                <a href="{{ upcoming.telegram_link }}" target="_blank" class="link-button telegram-link">
                     <i class="fab fa-telegram"></i>
                     Telegram Channel
                 </a>
                 {% endif %}
 
-                {% if job.youtube_link %}
-                <a href="{{ job.youtube_link }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube channel" class="link-button youtube-link">
+                {% if upcoming.youtube_link %}
+                <a href="{{ upcoming.youtube_link }}" target="_blank" class="link-button youtube-link">
                     <i class="fab fa-youtube"></i>
                     YouTube Channel
                 </a>
@@ -228,15 +211,13 @@
         {% endif %}
 
         <div class="job-actions">
-            <a href="{% url 'job_list' %}" class="btn-save" aria-label="View all jobs">
+            <a href="{% url 'home' %}" class="btn-save">
                 <i class="fa fa-list"></i>
-                All Jobs
-            </a>
-            <a href="#" class="btn-share" aria-label="Share job">
-                <i class="fa fa-share-alt"></i>
-                Share
+                Back to Home
             </a>
         </div>
     </div>
 </div>
 {% endblock %}
+
+

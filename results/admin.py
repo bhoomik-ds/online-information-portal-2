@@ -3,7 +3,7 @@ from .models import Result
 
 # Register your models here.
 class ResultAdmin(admin.ModelAdmin):
-    list_display = ('exam_name',)
-    search_fields = ('exam_name',)
+    list_display = ('title', 'url', 'order')
+    search_fields = ('title',)
 
 admin.site.register(Result, ResultAdmin)

@@ -26,9 +26,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY', default='django-insecure-@)8xg(17(dl=_+r9wl!j1svbzu32x3h#@ob2^k6mb^mq%ms0z(')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = config('DEBUG', default=True, cast=bool) 
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1,localhost').split(',')
+
+# CSRF trusted origins (important for admin/login forms)
+# Include common local hosts and any provided via env
+DEFAULT_CSRF_TRUSTED = ['http://127.0.0.1:8000', 'http://localhost:8000']
+ENV_CSRF_TRUSTED = config('CSRF_TRUSTED_ORIGINS', default='').split(',') if config('CSRF_TRUSTED_ORIGINS', default='') else []
+CSRF_TRUSTED_ORIGINS = DEFAULT_CSRF_TRUSTED + ENV_CSRF_TRUSTED
 
 
 # Application definition
@@ -65,7 +71,7 @@ ROOT_URLCONF = "online_information.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-    "DIRS": [BASE_DIR / "templates"],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -89,7 +95,7 @@ WSGI_APPLICATION = "online_information.wsgi.application"
 #         "ENGINE": "django.db.backends.sqlite3",
 #         "NAME": BASE_DIR / "db.sqlite3",
 #     }
-# }
+# } 
 
 DATABASES = {
     'default': dj_database_url.parse(config('DATABASE_URL', default=f'sqlite:///{BASE_DIR}/db.sqlite3'))

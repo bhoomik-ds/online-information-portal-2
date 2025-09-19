@@ -62,12 +62,12 @@
         }
         </style>
         <div class="page-header-content">
-            <a href="{% url 'job_list' %}" class="back-button">
+            <a href="{% url 'notification_list' %}" class="back-button">
                 <i class="fa fa-arrow-left"></i>
-                Back to Jobs
+                Back to Notifications
             </a>
-            <h1 class="page-title">{{ job.title }}</h1>
-            <p class="page-subtitle">Job Details & Application Information</p>
+            <h1 class="page-title">{{ notification.title }}</h1>
+            <p class="page-subtitle">Notification Details & Information</p>
         </div>
     </div>
 </section>
@@ -76,149 +76,157 @@
     <div class="job-detail-card fade-in-up">
 
         <div class="job-title-header">
-            <h1>{{ job.title }}</h1>
+            <h1>{{ notification.title }}</h1>
         </div>
 
-        {% if job.image %}
+        {% if notification.image %}
         <div class="job-image-top">
-            <img src="{{ job.image.url }}" alt="{{ job.title }}" class="job-main-image">
+            <img src="{{ notification.image.url }}" alt="{{ notification.title }}" class="job-main-image">
         </div>
         {% endif %}
 
         <div class="job-info-section">
-            {% if job.organization_name %}
+            {% if notification.organization_name %}
             <div class="info-row">
                 <span class="info-label">ORGANIZATION:</span>
-                <span class="info-value">{{ job.organization_name }}</span>
+                <span class="info-value">{{ notification.organization_name }}</span>
             </div>
             {% endif %}
 
-            {% if job.post_name %}
+            {% if notification.post_name %}
             <div class="info-row">
                 <span class="info-label">POST NAME:</span>
-                <span class="info-value">{{ job.post_name }}</span>
+                <span class="info-value">{{ notification.post_name }}</span>
             </div>
             {% endif %}
 
-            {% if job.salary %}
+            {% if notification.salary %}
             <div class="info-row">
                 <span class="info-label">SALARY:</span>
-                <span class="info-value">{{ job.salary }}</span>
+                <span class="info-value">{{ notification.salary }}</span>
             </div>
             {% endif %}
 
-            {% if job.total_vacancies %}
+            {% if notification.total_vacancies %}
             <div class="info-row">
                 <span class="info-label">TOTAL VACANCIES:</span>
-                <span class="info-value">{{ job.total_vacancies }}</span>
+                <span class="info-value">{{ notification.total_vacancies }}</span>
             </div>
             {% endif %}
 
-            {% if job.start_date %}
+            {% if notification.start_date %}
             <div class="info-row">
                 <span class="info-label">START DATE:</span>
-                <span class="info-value">{{ job.start_date }}</span>
+                <span class="info-value">{{ notification.start_date|date:"d M Y" }}</span>
             </div>
             {% endif %}
 
-            {% if job.end_date %}
+            {% if notification.end_date %}
             <div class="info-row">
                 <span class="info-label">END DATE:</span>
-                <span class="info-value">{{ job.end_date }}</span>
+                <span class="info-value">{{ notification.end_date|date:"d M Y" }}</span>
             </div>
             {% endif %}
         </div>
 
-        {% if job.short_description %}
+        {% if notification.short_description %}
         <div class="description-section">
             <div class="description-row">
                 <span class="desc-label">DESCRIPTION:</span>
-                <span class="desc-value">{{ job.short_description|linebreaksbr }}</span>
+                <span class="desc-value">{{ notification.short_description|linebreaksbr }}</span>
             </div>
         </div>
         {% endif %}
 
-        {% if job.education_qualification %}
+        {% if notification.education_qualification %}
         <div class="qa-section">
             <div class="qa-question">EDUCATION QUALIFICATION</div>
-            <div class="qa-answer">{{ job.education_qualification }}</div>
+            <div class="qa-answer">{{ notification.education_qualification }}</div>
         </div>
         {% endif %}
 
         <div class="dual-info-section">
-            {% if job.age_limit %}
+            {% if notification.age_limit %}
             <div class="dual-info-item">
                 <span class="info-label">AGE LIMIT:</span>
-                <span class="info-value">{{ job.age_limit }}</span>
+                <span class="info-value">{{ notification.age_limit }}</span>
             </div>
             {% endif %}
 
-            {% if job.application_fee %}
+            {% if notification.application_fee %}
             <div class="dual-info-item">
                 <span class="info-label">APPLICATION FEE:</span>
-                <span class="info-value">{{ job.application_fee }}</span>
+                <span class="info-value">{{ notification.application_fee }}</span>
             </div>
             {% endif %}
         </div>
 
-        {% if job.exam_pattern %}
+        {% if notification.exam_pattern %}
         <div class="qa-section">
             <div class="qa-question">EXAM PATTERN</div>
             <div class="qa-answer exam-pattern-content">
-                {{ job.exam_pattern|linebreaksbr }}
+                {{ notification.exam_pattern|linebreaksbr }}
             </div>
         </div>
         {% endif %}
 
-        {% if job.short_description %}
+        {% comment %}
+            Use a dedicated description if available (notification.description),
+            otherwise fall back to short_description.
+        {% endcomment %}
+        {% if notification.description or notification.short_description %}
         <div class="job-description-section">
             <h2 class="section-title">
                 <i class="fa fa-file-text"></i>
-                Job Description
+                Notification Description
             </h2>
             <div class="job-description">
-                {{ job.short_description|linebreaks }}
+                {% if notification.description %}
+                    {{ notification.description|linebreaks }}
+                {% else %}
+                    {{ notification.short_description|linebreaks }}
+                {% endif %}
             </div>
         </div>
         {% endif %}
 
-        {% if job.apply_online_link or job.official_notification_link or job.whatsapp_link or job.telegram_link or job.youtube_link %}
+        {% if notification.apply_online_link or notification.official_notification_link or notification.whatsapp_link or notification.telegram_link or notification.youtube_link %}
         <div class="job-description-section">
             <h2 class="section-title">
                 <i class="fa fa-link"></i>
                 Important Links
             </h2>
             <div class="links-grid">
-                {% if job.apply_online_link %}
-                <a href="{{ job.apply_online_link }}" target="_blank" rel="noopener noreferrer" aria-label="Apply online" class="link-button apply-link">
+                {% if notification.apply_online_link %}
+                <a href="{{ notification.apply_online_link }}" target="_blank" rel="noopener noreferrer" aria-label="Apply online" class="link-button apply-link">
                     <i class="fa fa-external-link-alt"></i>
                     Apply Online
                 </a>
                 {% endif %}
 
-                {% if job.official_notification_link %}
-                <a href="{{ job.official_notification_link }}" target="_blank" rel="noopener noreferrer" aria-label="Official notification" class="link-button notification-link">
+                {% if notification.official_notification_link %}
+                <a href="{{ notification.official_notification_link }}" target="_blank" rel="noopener noreferrer" aria-label="Official notification" class="link-button notification-link">
                     <i class="fa fa-file-pdf"></i>
                     Official Notification
                 </a>
                 {% endif %}
 
-                {% if job.whatsapp_link %}
-                <a href="{{ job.whatsapp_link }}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp channel" class="link-button whatsapp-link">
+                {% if notification.whatsapp_link %}
+                <a href="{{ notification.whatsapp_link }}" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp channel" class="link-button whatsapp-link">
                     <i class="fab fa-whatsapp"></i>
                     WhatsApp Channel
                 </a>
                 {% endif %}
 
-                {% if job.telegram_link %}
-                <a href="{{ job.telegram_link }}" target="_blank" rel="noopener noreferrer" aria-label="Telegram channel" class="link-button telegram-link">
+                {% if notification.telegram_link %}
+                <a href="{{ notification.telegram_link }}" target="_blank" rel="noopener noreferrer" aria-label="Telegram channel" class="link-button telegram-link">
                     <i class="fab fa-telegram"></i>
                     Telegram Channel
                 </a>
                 {% endif %}
 
-                {% if job.youtube_link %}
-                <a href="{{ job.youtube_link }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube channel" class="link-button youtube-link">
+                {% if notification.youtube_link %}
+                <a href="{{ notification.youtube_link }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube channel" class="link-button youtube-link">
                     <i class="fab fa-youtube"></i>
                     YouTube Channel
                 </a>
@@ -228,11 +236,11 @@
         {% endif %}
 
         <div class="job-actions">
-            <a href="{% url 'job_list' %}" class="btn-save" aria-label="View all jobs">
+            <a href="{% url 'notification_list' %}" class="btn-save" aria-label="View all notifications">
                 <i class="fa fa-list"></i>
-                All Jobs
+                All Notifications
             </a>
-            <a href="#" class="btn-share" aria-label="Share job">
+            <a href="#" class="btn-share" aria-label="Share notification">
                 <i class="fa fa-share-alt"></i>
                 Share
             </a>

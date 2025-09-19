@@ -129,6 +129,8 @@ dmypy.json
 .pyre/
 
 # Django specific
+staticfiles/
+media/
 
 # IDE
 .vscode/
@@ -138,17 +140,13 @@ dmypy.json
 
 # OS
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 
-# Vercel
-.vercel
-*.vercel
-
-# Environment files
-.env.local
-.env.production
-
-# Credentials and secrets
-VERCEL_CREDENTIALS.txt
-*.credentials
-secrets.txt
+# Temporary files
+*.tmp
+*.temp
